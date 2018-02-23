@@ -11,25 +11,25 @@ In the parent document:
 ```
 
 ```js
-import { setup, iframe } from '@sidp/iframes';
-setup(document.getElementById('iframe'));
+import { setup } from '@sidp/iframes';
+const iframe = setup(document.getElementById('iframe'));
 ```
 
 In the iframed document:
 
 ```js
-import { parent, iframe } from '@sidp/iframes';
+import { parentWindow, iframe } from '@sidp/iframes';
 ```
 
-The `parent` object contains functions referring to the parent document and and `iframe` contains functions referring ot the iframe element in the parent document.
+The `parentWindow` object contains functions referring to the parent window and and `iframe` contains functions referring ot the iframe element in the parent document.
 
 ### Set the scroll position
 
 ```js
-parent.scrollTo(x, y);
+parentWindow.scrollTo(x, y);
 ```
 
-If the arguments are provied as numbers they are interpreted as pixel values. If they are strings they should contain the desired unit, e.g. `100vh`, and will be interpreted as such.
+The arguments must be provided as numbers. They are interpreted as pixel values.
 
 ### Get and set the size of the iframe
 
@@ -60,11 +60,11 @@ import { setup } from '@sidp/iframes';
 const iframe = setup(document.getElementById('iframe'));
 
 iframe.on('resize', ({ width, height }) => {
-    console.log('the iframe resized itself', width, height);
+	console.log('the iframe resized itself', width, height);
 });
 
 iframe.on('scroll', ({ x, y }) => {
-    console.log('iframe scrolled the window to', x, y);
+	console.log('iframe scrolled the window to', x, y);
 });
 ```
 
