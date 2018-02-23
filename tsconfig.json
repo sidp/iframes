@@ -1,0 +1,9 @@
+{
+	"compilerOptions": {
+		"sourceMap": true,
+		"noImplicitAny": true,
+		"strictFunctionTypes": true,
+		"lib": ["dom", "es2015", "es2017"]
+	},
+	"include": ["./src/**/*"]
+}

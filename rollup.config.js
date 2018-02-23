@@ -13,9 +13,9 @@ export default {
 	},
 	plugins: [
 		typescript({
-			typescript: ts
+			typescript: ts,
 		}),
 		resolve(),
 		commonjs(),
-	]
-}
+	],
+};
