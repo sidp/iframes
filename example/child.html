@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<title>Iframes demo</title>
+	<style>
+		body {
+			margin: 0;
+			font-family: sans-serif;
+		}
+
+		h1,
+		p {
+			margin-left: 1.5rem;
+			margin-right: 1.5rem;
+		}
+
+		iframe {
+			width: 100vw;
+			height: 100vh;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Content</h1>
+	<p>Content in the content window.</p>
+	<button id="btn">Adjust scroll</button>
+	<script src="../build/main.js"></script>
+	<script>
+		// initialize script in parent window
+		document.getElementById('btn').addEventListener('click', (ev) => {
+			console.log('click', window.sidpIframe.parentWindow);
+			window.sidpIframe.parentWindow.scrollTo(10, 10);
+		});
+	</script>
+</body>
+
+</html>
