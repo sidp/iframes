@@ -3,6 +3,7 @@
  */
 
 import { MessageType, IScrollMessage } from '../types';
+import { send } from '../utils/sender';
 
 const parentWindow = {
 	scrollTo(x: number, y: number): void {
@@ -11,8 +12,9 @@ const parentWindow = {
 			x,
 			y,
 		};
+
 		// todo: correctly set origin
-		window.parent.postMessage(msg, '*');
+		send(window.parent, msg, '*');
 	},
 };
 

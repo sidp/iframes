@@ -1,5 +1,6 @@
 import { MessageType, IMessage, IScrollMessage } from '../types';
 import listener, { Listener } from '../utils/listener';
+import sender from '../utils/sender';
 
 interface IIFrameOptions {
 	nav?: boolean;
@@ -9,17 +10,19 @@ class IFrame {
 	el: HTMLIFrameElement;
 	opts: IIFrameOptions;
 	listener: Listener;
+	send: (msg) => void;
 
 	constructor(el: HTMLIFrameElement, opts: IIFrameOptions = {}) {
 		this.el = el;
 		this.opts = opts;
 		this.listener = listener(window);
+		this.send = sender(this.el.contentWindow, '*');
 
 		// Send a message to the iframe window saying this initialized
 		console.log('initialized');
 
 		// todo: correctly set target origin
-		this.el.contentWindow.postMessage({ type: MessageType.INIT }, '*');
+		this.send({ type: MessageType.INIT });
 
 		this.listener.on(MessageType.SCROLL_TO, this.handleScrollTo);
 	}
