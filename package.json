@@ -1,8 +1,9 @@
 {
-  "name": "iframe-handler",
-  "version": "1.0.0",
+  "name": "@sidp/iframes",
+  "version": "0.1.0",
   "main": "index.js",
   "author": "Peter Simonsson <peter@simonsson.com>",
+  "repository": "git@github.com:sidp/iframes.git",
   "license": "MIT",
   "private": true,
   "scripts": {
