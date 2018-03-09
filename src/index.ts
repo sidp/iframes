@@ -1,6 +1,6 @@
 import setup from './parent/setup';
-import parentWindow from './child/window';
-import iframe from './child/iframe';
+import * as parentWindow from './child/window';
+import * as iframe from './child/iframe';
 
 const iframeApi = {
 	setup,

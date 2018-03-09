@@ -9,6 +9,7 @@
 		body {
 			margin: 0;
 			font-family: sans-serif;
+			background-color: #ffc;
 		}
 
 		h1,
@@ -27,13 +28,20 @@
 <body>
 	<h1>Content</h1>
 	<p>Content in the content window.</p>
-	<button id="btn">Adjust scroll</button>
-	<script src="../build/main.js"></script>
+	<button id="scrollBtn">Adjust scroll</button>
+	<button id="resizeBtn">Resize frame</button>
+	<script src="//0.0.0.0:4021/main.js"></script>
 	<script>
-		// initialize script in parent window
-		document.getElementById('btn').addEventListener('click', (ev) => {
-			console.log('click', window.sidpIframe.parentWindow);
-			window.sidpIframe.parentWindow.scrollTo(10, 10);
+		const { parentWindow, iframe } = window.sidpIframe;
+
+		document.getElementById('scrollBtn').addEventListener('click', (ev) => {
+			parentWindow.scrollTo(0, 100);
+		});
+
+		iframe.width('100%');
+
+		document.getElementById('resizeBtn').addEventListener('click', (ev) => {
+			iframe.height(200 + Math.floor(Math.random() * 150));
 		});
 	</script>
 </body>

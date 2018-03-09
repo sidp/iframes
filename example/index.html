@@ -22,9 +22,40 @@
 <body>
 	<h1>Parent</h1>
 	<p>Content above the iframe.</p>
-	<iframe src="./child.html" frameborder="0" id="iframe"></iframe>
+	<iframe src="//foreign.test:4020/child.html" frameborder="0" id="iframe"></iframe>
 	<p>Content below the iframe.</p>
-	<script src="../build/main.js"></script>
+	<p>Super long page. Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum cupiditate expedita quia, assumenda, quam
+		iure, labore id ipsum repellendus obcaecati eum molestias minus dolorem magni iusto nostrum? Assumenda, nesciunt cumque?
+		Lorem ipsum dolor, sit amet consectetur adipisicing elit. Praesentium, quae minima velit ut perspiciatis deserunt consequatur
+		officia temporibus, dolor ad debitis qui harum quod, id ullam excepturi! Debitis, perspiciatis dolor. Lorem ipsum, dolor
+		sit amet consectetur adipisicing elit. Accusamus ex saepe laborum aspernatur natus labore quae magni rerum minus facilis
+		veritatis, officiis, nostrum molestiae consequuntur excepturi doloribus iure esse animi! Lorem, ipsum dolor sit amet consectetur
+		adipisicing elit. Et voluptatum tenetur ratione facere quaerat odit asperiores optio. Magni, harum doloribus. Saepe beatae
+		facere sit doloribus pariatur inventore similique quae autem. Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+		Impedit architecto ipsam, doloribus accusamus autem repellendus ad earum quod inventore aspernatur, debitis sint eos corrupti,
+		illo fugit quos ipsa expedita repellat? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae porro rerum
+		modi beatae ad alias, et dolorem optio debitis pariatur repellat quibusdam ducimus, adipisci at velit quidem aut, placeat
+		maxime.
+	</p>
+	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae error maiores inventore et voluptatibus pariatur ullam, at
+		perferendis deleniti hic dolorem unde odio accusamus magni, repellendus, provident ipsam delectus! Asperiores? Lorem ipsum
+		dolor sit amet consectetur adipisicing elit. Temporibus sapiente labore inventore, esse eveniet, facere atque autem obcaecati,
+		molestiae nam quia. Architecto maiores aut accusantium vitae cupiditate consectetur dolor culpa!</p>
+	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, dolorum reprehenderit? Nihil ut reiciendis id. Quibusdam
+		similique debitis, ad ullam, deleniti maxime, aspernatur rerum itaque sit voluptatum error et animi! Lorem ipsum dolor
+		sit amet consectetur adipisicing elit. Asperiores velit at magnam, cum ipsum omnis rerum doloremque fugit adipisci. Esse
+		accusamus facilis fugit a animi illum. Eius, numquam. Rerum, atque. Lorem ipsum dolor, sit amet consectetur adipisicing
+		elit. Consectetur omnis veniam dolor inventore corrupti nemo quaerat similique laudantium voluptate voluptatum modi quidem,
+		id qui hic laboriosam. Nam reiciendis quod hic.</p>
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut velit eos fuga aspernatur tempore, voluptas impedit atque
+		consequuntur! Asperiores at ipsam facilis atque amet dignissimos officia eius repellat nam laborum. Lorem ipsum dolor sit
+		amet, consectetur adipisicing elit. Possimus, necessitatibus? Possimus reiciendis, repudiandae aperiam nemo optio ad, natus
+		magni ipsum corporis facilis fuga quas perferendis assumenda accusamus perspiciatis quisquam nam! Lorem ipsum dolor sit
+		amet consectetur adipisicing elit. Placeat vero temporibus nemo debitis, magni porro iusto expedita aspernatur reiciendis
+		maiores labore repellat eveniet accusamus dolore! Unde quibusdam officia esse non! Lorem ipsum dolor sit amet consectetur,
+		adipisicing elit. Officia, nihil enim. Facere dicta iusto explicabo ad incidunt ipsum voluptate modi, quaerat ex, excepturi
+		inventore reiciendis. Odit illum at sapiente! Commodi.</p>
+	<script src="//0.0.0.0:4021/main.js"></script>
 	<script>
 		// initialize script in parent window
 		window.sidpIframe.setup(document.getElementById('iframe'));

@@ -1,23 +1,30 @@
 {
-  "name": "@sidp/iframes",
-  "version": "0.1.0",
-  "main": "index.js",
-  "author": "Peter Simonsson <peter@simonsson.com>",
-  "repository": "git@github.com:sidp/iframes.git",
-  "license": "MIT",
-  "private": true,
-  "scripts": {
-    "build": "rollup -c",
-    "dev": "yarn build --watch"
-  },
-  "dependencies": {
-    "rollup": "^0.56.2",
-    "rollup-plugin-commonjs": "^8.3.0",
-    "rollup-plugin-node-resolve": "^3.0.3",
-    "rollup-plugin-typescript": "^0.8.1",
-    "typescript": "^2.7.2"
-  },
-  "devDependencies": {
-    "prettier": "^1.10.2"
-  }
+	"name": "@sidp/iframes",
+	"version": "0.1.0",
+	"main": "index.js",
+	"author": "Peter Simonsson <peter@simonsson.com>",
+	"repository": "git@github.com:sidp/iframes.git",
+	"license": "MIT",
+	"private": true,
+	"scripts": {
+		"build": "rollup -c",
+		"serve-origin1": "http-server ./example -s -p 4020",
+		"serve-origin2": "http-server ./example -s -p 4020 -a foreign.test",
+		"serve-build": "http-server ./build -s -p 4021",
+		"watch": "yarn build --watch",
+		"dev":
+			"concurrently --kill-others-on-fail 'yarn run watch' 'yarn run serve-origin1' 'yarn run serve-origin2' 'yarn run serve-build'"
+	},
+	"dependencies": {
+		"rollup": "^0.56.2",
+		"rollup-plugin-commonjs": "^8.3.0",
+		"rollup-plugin-node-resolve": "^3.0.3",
+		"rollup-plugin-typescript": "^0.8.1",
+		"typescript": "^2.7.2"
+	},
+	"devDependencies": {
+		"concurrently": "^3.5.1",
+		"http-server": "^0.11.1",
+		"prettier": "^1.10.2"
+	}
 }

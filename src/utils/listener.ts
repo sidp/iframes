@@ -2,7 +2,15 @@
  * Listen for messages and call provided callback functions.
  */
 
-import { MessageType, IMessage, IListener, IScrollMessage } from '../types';
+import {
+	MessageType,
+	IMessage,
+	IListener,
+	ISimpleMessage,
+	IScrollMessage,
+	IResizeMessage,
+	ISetSizeInfoMessage,
+} from '../types';
 
 export class Listener {
 	listeners: IListener[] = [];
@@ -14,7 +22,6 @@ export class Listener {
 	}
 
 	handleMessages = (ev: MessageEvent) => {
-		console.log('received ', ev);
 		// todo: validate where message comes from
 		const msg = ev.data as IMessage;
 		this.listeners
@@ -22,7 +29,14 @@ export class Listener {
 			.forEach(listener => listener.fn(msg));
 	};
 
+	// todo: move this to type def
+	on(type: MessageType.INIT, fn: (msg: ISimpleMessage) => void): void;
 	on(type: MessageType.SCROLL_TO, fn: (msg: IScrollMessage) => void): void;
+	on(type: MessageType.RESIZE, fn: (msg: IResizeMessage) => void): void;
+	on(
+		type: MessageType.SET_SIZE_INFO,
+		fn: (msg: ISetSizeInfoMessage) => void
+	): void;
 	on(type: MessageType, fn: (msg: any) => void): void {
 		if (typeof fn !== 'function') {
 			throw new Error(

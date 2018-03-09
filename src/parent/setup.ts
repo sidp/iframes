@@ -1,4 +1,10 @@
-import { MessageType, IMessage, IScrollMessage } from '../types';
+import {
+	MessageType,
+	IMessage,
+	IScrollMessage,
+	IResizeMessage,
+	ISetSizeInfoMessage,
+} from '../types';
 import listener, { Listener } from '../utils/listener';
 import sender from '../utils/sender';
 
@@ -15,22 +21,49 @@ class IFrame {
 	constructor(el: HTMLIFrameElement, opts: IIFrameOptions = {}) {
 		this.el = el;
 		this.opts = opts;
-		this.listener = listener(window);
+
 		this.send = sender(this.el.contentWindow, '*');
+		this.listener = listener(window);
 
-		// Send a message to the iframe window saying this initialized
-		console.log('initialized');
-
-		// todo: correctly set target origin
-		this.send({ type: MessageType.INIT });
-
-		this.listener.on(MessageType.SCROLL_TO, this.handleScrollTo);
+		this.listener.on(MessageType.INIT, this.initialize);
 	}
+
+	initialize = () => {
+		this.listener.on(MessageType.SCROLL_TO, this.handleScrollTo);
+		this.listener.on(MessageType.RESIZE, this.handleResize);
+
+		window.addEventListener('resize', this.handleWindowChange);
+		window.addEventListener('scroll', this.handleWindowChange);
+	};
 
 	handleScrollTo(msg: IScrollMessage) {
 		const { x, y } = msg;
 		window.scrollTo(x, y);
 	}
+
+	handleResize = (msg: IResizeMessage) => {
+		let { width, height } = msg;
+		width = prepareUnit(width);
+		height = prepareUnit(height);
+
+		if (width) {
+			this.el.style.width = width;
+		}
+
+		if (height) {
+			this.el.style.height = height;
+		}
+
+		this.handleWindowChange();
+	};
+
+	handleWindowChange = () => {
+		const msg: ISetSizeInfoMessage = {
+			type: MessageType.SET_SIZE_INFO,
+			rect: this.el.getBoundingClientRect(),
+		};
+		this.send(msg);
+	};
 }
 
 function setup(frame: HTMLIFrameElement, opts: IIFrameOptions = {}) {
@@ -38,3 +71,24 @@ function setup(frame: HTMLIFrameElement, opts: IIFrameOptions = {}) {
 }
 
 export default setup;
+
+/**
+ * Helpers
+ */
+
+const prepareUnit = (no?: string | number): string => {
+	if (typeof no === 'undefined') {
+		return undefined;
+	}
+
+	switch (typeof no) {
+		case 'string':
+			return String(no);
+		case 'number':
+			return `${no}px`;
+		default:
+			throw new Error(
+				`Unexpected unit type. Accepted: string, number. Received: ${typeof no}.`
+			);
+	}
+};
