@@ -10,7 +10,7 @@ class IFrame {
 	el: HTMLIFrameElement;
 	opts: IIFrameOptions;
 	listener: Listener;
-	send: (msg) => void;
+	send: (msg: IMessage) => void;
 
 	constructor(el: HTMLIFrameElement, opts: IIFrameOptions = {}) {
 		this.el = el;
