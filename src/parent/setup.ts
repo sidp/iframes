@@ -7,6 +7,7 @@ import {
 } from '../types';
 import listener, { Listener } from '../utils/listener';
 import sender from '../utils/sender';
+import { viewportPosition, documentPosition, elementSize } from '../utils/dom';
 
 interface IIFrameOptions {
 	nav?: boolean;
@@ -61,7 +62,11 @@ class IFrame {
 	handleWindowChange = () => {
 		const msg: ISetSizeInfoMessage = {
 			type: MessageType.SET_SIZE_INFO,
-			rect: this.el.getBoundingClientRect(),
+			sizeInfo: {
+				viewport: viewportPosition(this.el),
+				document: documentPosition(this.el),
+				size: elementSize(this.el),
+			},
 		};
 		this.send(msg);
 	};

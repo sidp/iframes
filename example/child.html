@@ -53,13 +53,9 @@
 		document.getElementById('scrollBtn').addEventListener('click', (ev) => {
 			parentWindow.scrollTo(0, 100);
 		});
+
 		document.getElementById('infoBtn').addEventListener('click', (ev) => {
-			console.log({
-				top: iframe.viewport.top(),
-				left: iframe.viewport.left(),
-				right: iframe.viewport.right(),
-				bottom: iframe.viewport.bottom(),
-			});
+			console.log(iframe.all());
 		});
 
 		iframe.width('100%');

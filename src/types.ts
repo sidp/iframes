@@ -1,3 +1,21 @@
+export interface IPosition {
+	top: number;
+	left: number;
+	right: number;
+	bottom: number;
+}
+
+export interface ISize {
+	width: number;
+	height: number;
+}
+
+export interface ISizeInfo {
+	viewport: IPosition;
+	document: IPosition;
+	size: ISize;
+}
+
 export enum MessageType {
 	INIT = 'INIT',
 	SCROLL_TO = 'SCROLL_TO',
@@ -23,7 +41,7 @@ export interface IResizeMessage {
 
 export interface ISetSizeInfoMessage {
 	type: MessageType.SET_SIZE_INFO;
-	rect: ClientRect | DOMRect;
+	sizeInfo: ISizeInfo;
 }
 
 export type IMessage =

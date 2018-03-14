@@ -2,7 +2,7 @@
  *
  */
 
-import { MessageType } from '../types';
+import { MessageType, ISizeInfo } from '../types';
 import listenerCreator from '../utils/listener';
 import { send } from '../utils/sender';
 
@@ -15,21 +15,19 @@ try {
 	isFramed = true;
 }
 
-let iframeRect: ClientRect | DOMRect;
+let iframeSizeInfo: ISizeInfo;
 
 if (isFramed && !initialized) {
-	// Send a message to the iframe window saying this initialized
-	// todo: correctly set target origin
 	initialized = true;
 
 	const listener = listenerCreator(window);
 	listener.on(MessageType.SET_SIZE_INFO, msg => {
-		iframeRect = msg.rect;
+		iframeSizeInfo = msg.sizeInfo;
 	});
 
 	send(window.parent, { type: MessageType.INIT }, '*');
 }
 
-export function getRect() {
-	return iframeRect;
+export function getSizeInfo() {
+	return iframeSizeInfo;
 }

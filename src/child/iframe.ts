@@ -2,7 +2,7 @@
  * Control the iframe in the parent window
  */
 
-import { getRect } from './setup';
+import { getSizeInfo } from './setup';
 import { MessageType, IResizeMessage } from '../types';
 import { send } from '../utils/sender';
 
@@ -36,7 +36,7 @@ function sendResize({ width, height }: ISendResizeArgs) {
 
 export const size: ISetOrGetTuple = (width?: sizeParam, height?: sizeParam) => {
 	if (typeof width === 'undefined' || typeof height === 'undefined') {
-		const { width, height } = getRect();
+		const { size: { width, height } } = getSizeInfo();
 		const values: [number, number] = [width, height];
 		return values;
 	}
@@ -45,7 +45,7 @@ export const size: ISetOrGetTuple = (width?: sizeParam, height?: sizeParam) => {
 
 export const height: ISetOrGetValue = (height?: sizeParam) => {
 	if (typeof height === 'undefined') {
-		const { height } = getRect();
+		const { size: { height } } = getSizeInfo();
 		return height;
 	}
 	sendResize({ height });
@@ -53,27 +53,49 @@ export const height: ISetOrGetValue = (height?: sizeParam) => {
 
 export const width: ISetOrGetValue = (width?: sizeParam) => {
 	if (typeof width === 'undefined') {
-		const { width } = getRect();
+		const { size: { width } } = getSizeInfo();
 		return width;
 	}
 	sendResize({ width });
 };
 
+export const top = () => {
+	const { document: { top } } = getSizeInfo();
+	return top;
+};
+
+export const left = () => {
+	const { document: { left } } = getSizeInfo();
+	return left;
+};
+
+export const right = () => {
+	const { document: { right } } = getSizeInfo();
+	return right;
+};
+
+export const bottom = () => {
+	const { document: { bottom } } = getSizeInfo();
+	return bottom;
+};
+
 export const viewport = {
 	top(): number {
-		const { top } = getRect();
+		const { viewport: { top } } = getSizeInfo();
 		return top;
 	},
 	left(): number {
-		const { left } = getRect();
+		const { viewport: { left } } = getSizeInfo();
 		return left;
 	},
 	right(): number {
-		const { right } = getRect();
+		const { viewport: { right } } = getSizeInfo();
 		return right;
 	},
 	bottom(): number {
-		const { bottom } = getRect();
+		const { viewport: { bottom } } = getSizeInfo();
 		return bottom;
 	},
 };
+
+export const all = () => getSizeInfo();
