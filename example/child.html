@@ -6,8 +6,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 	<title>Iframes demo</title>
 	<style>
+		html {
+			margin: 1em 0;
+		}
+
 		body {
-			margin: 0;
+			margin: 1em 0;
 			font-family: sans-serif;
 			background-color: #ffc;
 		}
@@ -28,8 +32,19 @@
 <body>
 	<h1>Content</h1>
 	<p>Content in the content window.</p>
-	<button id="scrollBtn">Adjust scroll</button>
-	<button id="resizeBtn">Resize frame</button>
+	<p>
+		<button id="scrollBtn">Adjust scroll</button>
+	</p>
+	<div>
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non dolore possimus suscipit. Necessitatibus animi ratione, temporibus
+			facere officia adipisci autem possimus doloribus culpa vel soluta reiciendis ea nisi non tenetur! </p>
+		<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quas adipisci quibusdam magnam quis molestiae ad sequi molestias
+			laudantium, commodi, dolor facilis quos nostrum modi nam cumque expedita at dolore asperiores? Lorem ipsum dolor sit amet
+			consectetur adipisicing elit. Impedit nisi ea itaque amet obcaecati provident ipsa eius necessitatibus consequatur at
+			quia, deserunt illo nulla voluptatibus blanditiis nihil tempore culpa repudiandae.</p>
+		<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Mollitia harum vero aut dolores non odit dolorem facilis laboriosam
+			fuga reprehenderit, eius doloremque maiores, aliquid vel quos delectus tenetur odio exercitationem?</p>
+	</div>
 	<script src="//0.0.0.0:4021/main.js"></script>
 	<script>
 		const { parentWindow, iframe } = window.sidpIframe;
@@ -40,9 +55,25 @@
 
 		iframe.width('100%');
 
-		document.getElementById('resizeBtn').addEventListener('click', (ev) => {
-			iframe.height(200 + Math.floor(Math.random() * 150));
-		});
+		function elementHeight(el) {
+			const style = getComputedStyle(el);
+			let height = el.offsetHeight;
+			height += parseInt(style.marginTop, 10) + parseInt(style.marginBottom, 10);
+			return height;
+		}
+
+		function documentHeight() {
+			return elementHeight(document.documentElement);
+		}
+
+		function setHeight() {
+			const height = documentHeight();
+			iframe.height(height);
+		}
+
+		window.addEventListener('resize', setHeight);
+		window.addEventListener('load', setHeight);
+		setHeight();
 	</script>
 </body>
 
