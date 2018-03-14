@@ -6,19 +6,30 @@ import { MessageType } from '../types';
 import listenerCreator from '../utils/listener';
 import { send } from '../utils/sender';
 
-const listener = listenerCreator(window);
+let initialized = false;
+let isFramed: boolean;
 
-let isInFrame: boolean;
 try {
-	isInFrame = window.self !== window.top;
+	isFramed = window.self !== window.top;
 } catch (e) {
-	isInFrame = true;
+	isFramed = true;
 }
 
-if (isInFrame) {
+let iframeRect: ClientRect | DOMRect;
+
+if (isFramed && !initialized) {
 	// Send a message to the iframe window saying this initialized
 	// todo: correctly set target origin
+	initialized = true;
+
+	const listener = listenerCreator(window);
+	listener.on(MessageType.SET_SIZE_INFO, msg => {
+		iframeRect = msg.rect;
+	});
+
 	send(window.parent, { type: MessageType.INIT }, '*');
 }
 
-export function read() {}
+export function getRect() {
+	return iframeRect;
+}

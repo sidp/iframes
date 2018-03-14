@@ -34,6 +34,7 @@ class IFrame {
 
 		window.addEventListener('resize', this.handleWindowChange);
 		window.addEventListener('scroll', this.handleWindowChange);
+		this.handleWindowChange();
 	};
 
 	handleScrollTo(msg: IScrollMessage) {
