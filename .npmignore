@@ -1,0 +1,7 @@
+build
+src
+example
+.vscode
+.prettierrc
+rollup.config.js
+tsconfig.json

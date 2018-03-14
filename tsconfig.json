@@ -1,5 +1,10 @@
 {
 	"compilerOptions": {
+		"target": "es5",
+		"module": "commonjs",
+		"declarationDir": "./types",
+		"declaration": true,
+		"outDir": "./lib",
 		"sourceMap": true,
 		"noImplicitAny": true,
 		"strictFunctionTypes": true,
