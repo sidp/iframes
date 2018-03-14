@@ -9,11 +9,11 @@ import listener, { Listener } from '../utils/listener';
 import sender from '../utils/sender';
 import { viewportPosition, documentPosition, elementSize } from '../utils/dom';
 
-interface IIFrameOptions {
+export interface IIFrameOptions {
 	nav?: boolean;
 }
 
-class IFrame {
+export class IFrame {
 	el: HTMLIFrameElement;
 	opts: IIFrameOptions;
 	listener: Listener;

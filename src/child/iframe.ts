@@ -3,17 +3,17 @@
  */
 
 import { getSizeInfo } from './setup';
-import { MessageType, IResizeMessage } from '../types';
+import { MessageType, IResizeMessage, ISizeInfo } from '../types';
 import { send } from '../utils/sender';
 
-type sizeParam = number | string;
+export type sizeParam = number | string;
 
-interface ISetOrGetValue {
+export interface ISetOrGetValue {
 	(n: sizeParam): void;
 	(): number;
 }
 
-interface ISetOrGetTuple {
+export interface ISetOrGetTuple {
 	(a: sizeParam, b: sizeParam): void;
 	(): [number, number];
 }
@@ -147,4 +147,4 @@ export const viewport = {
  * Get all size info.
  */
 
-export const all = () => getSizeInfo();
+export const all = (): ISizeInfo => getSizeInfo();
