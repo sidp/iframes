@@ -34,6 +34,7 @@
 	<p>Content in the content window.</p>
 	<p>
 		<button id="scrollBtn">Adjust scroll</button>
+		<button id="infoBtn">Get info about iframe position</button>
 	</p>
 	<div>
 		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non dolore possimus suscipit. Necessitatibus animi ratione, temporibus
@@ -51,6 +52,14 @@
 
 		document.getElementById('scrollBtn').addEventListener('click', (ev) => {
 			parentWindow.scrollTo(0, 100);
+		});
+		document.getElementById('infoBtn').addEventListener('click', (ev) => {
+			console.log({
+				top: iframe.viewport.top(),
+				left: iframe.viewport.left(),
+				right: iframe.viewport.right(),
+				bottom: iframe.viewport.bottom(),
+			});
 		});
 
 		iframe.width('100%');

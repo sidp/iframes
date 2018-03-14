@@ -2,18 +2,25 @@
  * Control the iframe in the parent window
  */
 
-import { read } from './setup';
+import { getRect } from './setup';
 import { MessageType, IResizeMessage } from '../types';
 import { send } from '../utils/sender';
 
-interface ISetOrGetFunction {
-	(x: number, y?: number): void;
+type sizeParam = number | string;
+
+interface ISetOrGetValue {
+	(n: sizeParam): void;
 	(): number;
 }
 
+interface ISetOrGetTuple {
+	(a: sizeParam, b: sizeParam): void;
+	(): [number, number];
+}
+
 interface ISendResizeArgs {
-	width?: number | string;
-	height?: number | string;
+	width?: sizeParam;
+	height?: sizeParam;
 }
 
 function sendResize({ width, height }: ISendResizeArgs) {
@@ -27,29 +34,46 @@ function sendResize({ width, height }: ISendResizeArgs) {
 	send(window.parent, msg, '*');
 }
 
-export const size: ISetOrGetFunction = (
-	width?: number | string,
-	height?: number | string
-) => {
-	if (typeof width === 'undefined') {
-		// todo: return size
-		return 0;
+export const size: ISetOrGetTuple = (width?: sizeParam, height?: sizeParam) => {
+	if (typeof width === 'undefined' || typeof height === 'undefined') {
+		const { width, height } = getRect();
+		const values: [number, number] = [width, height];
+		return values;
 	}
 	sendResize({ width, height });
 };
 
-export const height: ISetOrGetFunction = (height?: number | string) => {
+export const height: ISetOrGetValue = (height?: sizeParam) => {
 	if (typeof height === 'undefined') {
-		// todo: get the iframe height
-		return 0;
+		const { height } = getRect();
+		return height;
 	}
 	sendResize({ height });
 };
 
-export const width: ISetOrGetFunction = (width?: number | string) => {
+export const width: ISetOrGetValue = (width?: sizeParam) => {
 	if (typeof width === 'undefined') {
-		// todo: get the iframe width
-		return 0;
+		const { width } = getRect();
+		return width;
 	}
 	sendResize({ width });
+};
+
+export const viewport = {
+	top(): number {
+		const { top } = getRect();
+		return top;
+	},
+	left(): number {
+		const { left } = getRect();
+		return left;
+	},
+	right(): number {
+		const { right } = getRect();
+		return right;
+	},
+	bottom(): number {
+		const { bottom } = getRect();
+		return bottom;
+	},
 };

@@ -51,6 +51,15 @@ iframe.right() // -> 16
 iframe.bottom(): // -> 840
 ```
 
+The following funtions return the position of the iframe relative to the viewport. The returned number is a pixel value. The functions take no arguments.
+
+```js
+iframe.viewport.top(); // -> 100
+iframe.viewport.left(); // -> 16
+iframe.viewport.right(); // -> 16
+iframe.viewport.bottom(); // -> 200
+```
+
 ### Listen to events
 
 In the parent document:
@@ -73,6 +82,8 @@ In the iframed document:
 ```js
 import { parent, iframe } from '@sidp/iframes';
 parent.on('init', () => {
-    console.log('The parent document initialized the iframe script for this iframe');
+	console.log(
+		'The parent document initialized the iframe script for this iframe'
+	);
 });
 ```
