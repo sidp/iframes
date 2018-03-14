@@ -34,6 +34,10 @@ function sendResize({ width, height }: ISendResizeArgs) {
 	send(window.parent, msg, '*');
 }
 
+/**
+ * Get or set the size of the iframe
+ */
+
 export const size: ISetOrGetTuple = (width?: sizeParam, height?: sizeParam) => {
 	if (typeof width === 'undefined' || typeof height === 'undefined') {
 		const { size: { width, height } } = getSizeInfo();
@@ -43,13 +47,9 @@ export const size: ISetOrGetTuple = (width?: sizeParam, height?: sizeParam) => {
 	sendResize({ width, height });
 };
 
-export const height: ISetOrGetValue = (height?: sizeParam) => {
-	if (typeof height === 'undefined') {
-		const { size: { height } } = getSizeInfo();
-		return height;
-	}
-	sendResize({ height });
-};
+/**
+ * Get or set the width of the iframe
+ */
 
 export const width: ISetOrGetValue = (width?: sizeParam) => {
 	if (typeof width === 'undefined') {
@@ -59,43 +59,92 @@ export const width: ISetOrGetValue = (width?: sizeParam) => {
 	sendResize({ width });
 };
 
+/**
+ * Get or set the height of the iframe
+ */
+
+export const height: ISetOrGetValue = (height?: sizeParam) => {
+	if (typeof height === 'undefined') {
+		const { size: { height } } = getSizeInfo();
+		return height;
+	}
+	sendResize({ height });
+};
+
+/**
+ * Get the iframe’s position from the top of the document
+ */
+
 export const top = () => {
 	const { document: { top } } = getSizeInfo();
 	return top;
 };
+
+/**
+ * Get the iframe’s position from the left of the document
+ */
 
 export const left = () => {
 	const { document: { left } } = getSizeInfo();
 	return left;
 };
 
+/**
+ * Get the iframe’s position from the right of the document
+ */
+
 export const right = () => {
 	const { document: { right } } = getSizeInfo();
 	return right;
 };
+
+/**
+ * Get the iframe’s position from the bottom of the document
+ */
 
 export const bottom = () => {
 	const { document: { bottom } } = getSizeInfo();
 	return bottom;
 };
 
+/**
+ * Collection of functions to get the position of the iframe relative to the
+ * current viewport.
+ */
+
 export const viewport = {
+	/**
+	 * Get the position from the top of the viewport
+	 */
 	top(): number {
 		const { viewport: { top } } = getSizeInfo();
 		return top;
 	},
+	/**
+	 * Get the position from the left of the viewport
+	 */
 	left(): number {
 		const { viewport: { left } } = getSizeInfo();
 		return left;
 	},
+	/**
+	 * Get the position from the right of the viewport
+	 */
 	right(): number {
 		const { viewport: { right } } = getSizeInfo();
 		return right;
 	},
+	/**
+	 * Get the position from the bottom of the viewport
+	 */
 	bottom(): number {
 		const { viewport: { bottom } } = getSizeInfo();
 		return bottom;
 	},
 };
+
+/**
+ * Get all size info.
+ */
 
 export const all = () => getSizeInfo();

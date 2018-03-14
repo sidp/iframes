@@ -6,6 +6,10 @@ import './setup';
 import { MessageType, IScrollMessage } from '../types';
 import { send } from '../utils/sender';
 
+/**
+ * Scroll the parent window to a provided position.
+ */
+
 export const scrollTo = (x: number, y: number): void => {
 	const msg: IScrollMessage = {
 		type: MessageType.SCROLL_TO,

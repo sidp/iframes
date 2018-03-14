@@ -72,6 +72,10 @@ class IFrame {
 	};
 }
 
+/**
+ * Set up the iframe
+ */
+
 function setup(frame: HTMLIFrameElement, opts: IIFrameOptions = {}) {
 	return new IFrame(frame, opts);
 }
@@ -79,7 +83,7 @@ function setup(frame: HTMLIFrameElement, opts: IIFrameOptions = {}) {
 export default setup;
 
 /**
- * Helpers
+ * Helper functions
  */
 
 const prepareUnit = (no?: string | number): string => {

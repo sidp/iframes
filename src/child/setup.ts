@@ -28,6 +28,11 @@ if (isFramed && !initialized) {
 	send(window.parent, { type: MessageType.INIT }, '*');
 }
 
+/**
+ * Get all the size and position of the iframe relative to the parent
+ * window and viewport.
+ */
+
 export function getSizeInfo() {
 	return iframeSizeInfo;
 }
