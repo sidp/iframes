@@ -51,7 +51,8 @@
 		const { parentWindow, iframe } = window.sidpIframe;
 
 		document.getElementById('scrollBtn').addEventListener('click', (ev) => {
-			parentWindow.scrollTo(0, 100);
+			const top = iframe.top();
+			parentWindow.scrollTo(0, top);
 		});
 
 		document.getElementById('infoBtn').addEventListener('click', (ev) => {
