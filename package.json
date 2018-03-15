@@ -14,7 +14,8 @@
 		"dev:serve-build": "http-server ./build -s -p 4021",
 		"dev:watch": "yarn run dev:build --watch",
 		"dev":
-			"concurrently --kill-others-on-fail 'yarn run dev:watch' 'yarn run dev:serve-origin1' 'yarn run dev:serve-origin2' 'yarn run dev:serve-build'"
+			"concurrently --kill-others-on-fail 'yarn run dev:watch' 'yarn run dev:serve-origin1' 'yarn run dev:serve-origin2' 'yarn run dev:serve-build'",
+		"prepublishOnly": "yarn run build"
 	},
 	"dependencies": {},
 	"devDependencies": {
