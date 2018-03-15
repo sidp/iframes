@@ -6,7 +6,6 @@
 	"author": "Peter Simonsson <peter@simonsson.com>",
 	"repository": "git@github.com:sidp/iframes.git",
 	"license": "MIT",
-	"private": true,
 	"scripts": {
 		"build": "tsc",
 		"dev:build": "rollup -c",
