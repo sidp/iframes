@@ -1,8 +1,8 @@
-# sidp/iframes
+# @sidp/iframes
 
-Give control of the parent window in an iframed page. Works cross-domain by utilizing the postMessage API. It is under development and the following documentation is describing future functionality.
+Give control of the parent window in an iframed page. Works cross-domain by utilizing the postMessage API. It is under development and things might still break.
 
-## Proposed API
+## API
 
 In the parent document:
 
@@ -60,7 +60,7 @@ iframe.viewport.right(); // -> 16
 iframe.viewport.bottom(); // -> 200
 ```
 
-### Listen to events
+### Listen to events (not implemented yet)
 
 In the parent document:
 
