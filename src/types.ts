@@ -10,10 +10,16 @@ export interface ISize {
 	height: number;
 }
 
+export interface IPointPosition {
+	x: number;
+	y: number;
+}
+
 export interface ISizeInfo {
 	viewport: IPosition;
 	document: IPosition;
 	size: ISize;
+	scroll: IPointPosition;
 }
 
 export enum MessageType {

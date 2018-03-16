@@ -31,6 +31,15 @@ parentWindow.scrollTo(x, y);
 
 The arguments must be provided as numbers. They are interpreted as pixel values.
 
+### Get the scroll position
+
+Get the current scroll position of the parent window. The returned number is a pixel value. The functions take no arguments.
+
+```js
+parentWindow.scrollX(); // -> 0
+parentWindow.scrollY(); // -> 0
+```
+
 ### Get and set the size of the iframe
 
 Get and set the height and width of the iframe. Numbers are interpreted as pixels and strings as css values.

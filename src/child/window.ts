@@ -2,7 +2,7 @@
  * Control the parent window
  */
 
-import { isFramed } from './setup';
+import { getSizeInfo, isFramed } from './setup';
 import { MessageType, IScrollMessage } from '../types';
 import { send } from '../utils/sender';
 
@@ -22,4 +22,18 @@ export const scrollTo = (x: number, y: number): boolean => {
 	// todo: correctly set origin
 	send(window.parent, msg, '*');
 	return true;
+};
+
+export const scrollX = () => {
+	if (!isFramed()) return false;
+
+	const { scroll: { x } } = getSizeInfo();
+	return x;
+};
+
+export const scrollY = () => {
+	if (!isFramed()) return false;
+
+	const { scroll: { y } } = getSizeInfo();
+	return y;
 };

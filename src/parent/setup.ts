@@ -66,6 +66,10 @@ export class IFrame {
 				viewport: viewportPosition(this.el),
 				document: documentPosition(this.el),
 				size: elementSize(this.el),
+				scroll: {
+					x: window.scrollX,
+					y: window.scrollY,
+				},
 			},
 		};
 		this.send(msg);
