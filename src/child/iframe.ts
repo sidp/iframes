@@ -2,7 +2,7 @@
  * Control the iframe in the parent window
  */
 
-import { getSizeInfo } from './setup';
+import { getSizeInfo, isFramed } from './setup';
 import { MessageType, IResizeMessage, ISizeInfo } from '../types';
 import { send } from '../utils/sender';
 
@@ -10,12 +10,12 @@ export type sizeParam = number | string;
 
 export interface ISetOrGetValue {
 	(n: sizeParam): void;
-	(): number;
+	(): number | boolean;
 }
 
 export interface ISetOrGetTuple {
 	(a: sizeParam, b: sizeParam): void;
-	(): [number, number];
+	(): [number, number] | boolean;
 }
 
 interface ISendResizeArgs {
@@ -24,6 +24,8 @@ interface ISendResizeArgs {
 }
 
 function sendResize({ width, height }: ISendResizeArgs) {
+	if (!isFramed()) return false;
+
 	const msg: IResizeMessage = {
 		type: MessageType.RESIZE,
 		width,
@@ -32,6 +34,7 @@ function sendResize({ width, height }: ISendResizeArgs) {
 
 	// todo: correctly set origin
 	send(window.parent, msg, '*');
+	return true;
 }
 
 /**
@@ -39,12 +42,15 @@ function sendResize({ width, height }: ISendResizeArgs) {
  */
 
 export const size: ISetOrGetTuple = (width?: sizeParam, height?: sizeParam) => {
+	if (!isFramed()) return false;
+
 	if (typeof width === 'undefined' || typeof height === 'undefined') {
 		const { size: { width, height } } = getSizeInfo();
 		const values: [number, number] = [width, height];
 		return values;
 	}
-	sendResize({ width, height });
+
+	return sendResize({ width, height });
 };
 
 /**
@@ -52,11 +58,14 @@ export const size: ISetOrGetTuple = (width?: sizeParam, height?: sizeParam) => {
  */
 
 export const width: ISetOrGetValue = (width?: sizeParam) => {
+	if (!isFramed()) return;
+
 	if (typeof width === 'undefined') {
 		const { size: { width } } = getSizeInfo();
 		return width;
 	}
-	sendResize({ width });
+
+	return sendResize({ width });
 };
 
 /**
@@ -64,11 +73,14 @@ export const width: ISetOrGetValue = (width?: sizeParam) => {
  */
 
 export const height: ISetOrGetValue = (height?: sizeParam) => {
+	if (!isFramed()) return false;
+
 	if (typeof height === 'undefined') {
 		const { size: { height } } = getSizeInfo();
 		return height;
 	}
-	sendResize({ height });
+
+	return sendResize({ height });
 };
 
 /**
@@ -76,6 +88,7 @@ export const height: ISetOrGetValue = (height?: sizeParam) => {
  */
 
 export const top = () => {
+	if (!isFramed()) return false;
 	const { document: { top } } = getSizeInfo();
 	return top;
 };
@@ -85,6 +98,7 @@ export const top = () => {
  */
 
 export const left = () => {
+	if (!isFramed()) return false;
 	const { document: { left } } = getSizeInfo();
 	return left;
 };
@@ -94,6 +108,7 @@ export const left = () => {
  */
 
 export const right = () => {
+	if (!isFramed()) return false;
 	const { document: { right } } = getSizeInfo();
 	return right;
 };
@@ -103,6 +118,7 @@ export const right = () => {
  */
 
 export const bottom = () => {
+	if (!isFramed()) return false;
 	const { document: { bottom } } = getSizeInfo();
 	return bottom;
 };
@@ -116,28 +132,32 @@ export const viewport = {
 	/**
 	 * Get the position from the top of the viewport
 	 */
-	top(): number {
+	top() {
+		if (!isFramed()) return false;
 		const { viewport: { top } } = getSizeInfo();
 		return top;
 	},
 	/**
 	 * Get the position from the left of the viewport
 	 */
-	left(): number {
+	left() {
+		if (!isFramed()) return false;
 		const { viewport: { left } } = getSizeInfo();
 		return left;
 	},
 	/**
 	 * Get the position from the right of the viewport
 	 */
-	right(): number {
+	right() {
+		if (!isFramed()) return false;
 		const { viewport: { right } } = getSizeInfo();
 		return right;
 	},
 	/**
 	 * Get the position from the bottom of the viewport
 	 */
-	bottom(): number {
+	bottom() {
+		if (!isFramed()) return false;
 		const { viewport: { bottom } } = getSizeInfo();
 		return bottom;
 	},
@@ -147,4 +167,7 @@ export const viewport = {
  * Get all size info.
  */
 
-export const all = (): ISizeInfo => getSizeInfo();
+export const all = (): ISizeInfo | false => {
+	if (!isFramed()) return false;
+	return getSizeInfo();
+};

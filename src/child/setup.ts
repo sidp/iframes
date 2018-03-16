@@ -7,17 +7,17 @@ import listenerCreator from '../utils/listener';
 import { send } from '../utils/sender';
 
 let initialized = false;
-let isFramed: boolean;
+let loadedInFrame: boolean;
 
 try {
-	isFramed = window.self !== window.top;
+	loadedInFrame = window.self !== window.top;
 } catch (e) {
-	isFramed = true;
+	loadedInFrame = true;
 }
 
 let iframeSizeInfo: ISizeInfo;
 
-if (isFramed && !initialized) {
+if (loadedInFrame && !initialized) {
 	initialized = true;
 
 	const listener = listenerCreator(window);
@@ -26,6 +26,14 @@ if (isFramed && !initialized) {
 	});
 
 	send(window.parent, { type: MessageType.INIT }, '*');
+}
+
+/**
+ * Check if this page is in an iframe
+ */
+
+export function isFramed(): boolean {
+	return loadedInFrame;
 }
 
 /**
