@@ -7,7 +7,7 @@
 	"repository": "git@github.com:sidp/iframes.git",
 	"license": "MIT",
 	"scripts": {
-		"build": "tsc",
+		"build": "rimraf lib && tsc",
 		"dev:build": "rollup -c",
 		"dev:serve-origin1": "http-server ./example -s -p 4020",
 		"dev:serve-origin2": "http-server ./example -s -p 4020 -a foreign.test",
@@ -21,6 +21,7 @@
 		"concurrently": "^3.5.1",
 		"http-server": "^0.11.1",
 		"prettier": "^1.10.2",
+		"rimraf": "^2.6.2",
 		"rollup": "^0.56.5",
 		"rollup-plugin-commonjs": "^9.1.0",
 		"rollup-plugin-node-resolve": "^3.2.0",
