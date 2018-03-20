@@ -4,27 +4,22 @@ import {
 	IScrollMessage,
 	IResizeMessage,
 	ISetSizeInfoMessage,
+	AllowedOrigin,
 } from '../types';
 import listener, { Listener } from '../utils/listener';
 import sender from '../utils/sender';
 import { viewportPosition, documentPosition, elementSize } from '../utils/dom';
 
-export interface IIFrameOptions {
-	nav?: boolean;
-}
-
 export class IFrame {
 	el: HTMLIFrameElement;
-	opts: IIFrameOptions;
 	listener: Listener;
 	send: (msg: IMessage) => void;
 
-	constructor(el: HTMLIFrameElement, opts: IIFrameOptions = {}) {
+	constructor(el: HTMLIFrameElement, allowedOrigin: AllowedOrigin) {
 		this.el = el;
-		this.opts = opts;
 
 		this.send = sender(this.el.contentWindow, '*');
-		this.listener = listener(window);
+		this.listener = listener(window, allowedOrigin);
 
 		this.listener.on(MessageType.INIT, this.initialize);
 	}
@@ -80,8 +75,8 @@ export class IFrame {
  * Set up the iframe
  */
 
-function setup(frame: HTMLIFrameElement, opts: IIFrameOptions = {}) {
-	return new IFrame(frame, opts);
+function setup(frame: HTMLIFrameElement, allowedOrigin: AllowedOrigin) {
+	return new IFrame(frame, allowedOrigin);
 }
 
 export default setup;

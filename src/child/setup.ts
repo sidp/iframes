@@ -20,7 +20,8 @@ let iframeSizeInfo: ISizeInfo;
 if (loadedInFrame && !initialized) {
 	initialized = true;
 
-	const listener = listenerCreator(window);
+	// todo: set allowed origin for listener
+	const listener = listenerCreator(window, '*');
 	listener.on(MessageType.SET_SIZE_INFO, msg => {
 		iframeSizeInfo = msg.sizeInfo;
 	});

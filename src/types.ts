@@ -22,6 +22,8 @@ export interface ISizeInfo {
 	scroll: IPointPosition;
 }
 
+export type AllowedOrigin = string[] | string;
+
 export enum MessageType {
 	INIT = 'INIT',
 	SCROLL_TO = 'SCROLL_TO',

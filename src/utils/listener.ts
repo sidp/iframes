@@ -3,6 +3,7 @@
  */
 
 import {
+	AllowedOrigin,
 	MessageType,
 	IMessage,
 	IListener,
@@ -14,16 +15,23 @@ import {
 
 export class Listener {
 	listeners: IListener[] = [];
+	allowedOrigins: AllowedOrigin;
 
-	constructor(on: Window) {
+	constructor(on: Window, allowedOrigins: AllowedOrigin) {
 		on.addEventListener('message', this.handleMessages);
+		this.allowedOrigins = allowedOrigins;
 		this.on = this.on.bind(this);
 		this.off = this.off.bind(this);
 	}
 
 	handleMessages = (ev: MessageEvent) => {
-		// todo: validate where message comes from
 		const msg = ev.data as IMessage;
+
+		if (!validateOrigin(this.allowedOrigins, ev.origin)) {
+			console.warn(ev.origin, 'not allowed');
+			return;
+		}
+
 		this.listeners
 			.filter(listener => listener.type === msg.type)
 			.forEach(listener => listener.fn(msg));
@@ -51,6 +59,18 @@ export class Listener {
 	}
 }
 
-export default function listener(on: Window) {
-	return new Listener(on);
+export default function listener(on: Window, allowedOrigins: AllowedOrigin) {
+	return new Listener(on, allowedOrigins);
+}
+
+/**
+ * Helpers
+ */
+
+function validateOrigin(allowed: AllowedOrigin, origin: string): boolean {
+	if (typeof allowed === 'string') {
+		return allowed === '*' || allowed === origin;
+	}
+
+	return allowed.includes(origin);
 }
