@@ -6,18 +6,19 @@ import { MessageType, ISizeInfo } from '../types';
 import listenerCreator from '../utils/listener';
 import { send } from '../utils/sender';
 
+const windowIsAvailable = typeof window !== 'undefined';
 let initialized = false;
 let loadedInFrame: boolean;
 
 try {
-	loadedInFrame = window.self !== window.top;
+	loadedInFrame = windowIsAvailable && window.self !== window.top;
 } catch (e) {
 	loadedInFrame = true;
 }
 
 let iframeSizeInfo: ISizeInfo;
 
-if (loadedInFrame && !initialized) {
+if (windowIsAvailable && loadedInFrame && !initialized) {
 	initialized = true;
 
 	// todo: set allowed origin for listener
